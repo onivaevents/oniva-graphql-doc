@@ -10,7 +10,7 @@ For API access you generally need the following parameters provided by Zoon.
 |Parameter|Example|Note|
 ---|---|---|
 |Endpoint Url|https://demo-staging.zoon.ch/api/graphql|The url of your Zoon instance appended by `/api/graphql`|
-|App token key|9b90683d5d689942cff7b46c5725547961c1a9e5|Token for app token authentication. This is provided by the Zoon Support or an administrator. There are further authentication methods for user based integrations. |
+|App token key|9b90683d5d689942cff7b46c5725547961c1a9e5|Token for app token authentication. This is provided by the Zoon Support or can be created by a super administrator in the admin interface. Alternatively, event token or further authentication methods for user based integrations are available. |
 
 Basic GraphQL knowledge is required for successfully consuming the API. 
 For general learnings please consult [https://graphql.org/learn/](https://graphql.org/learn/)
@@ -29,13 +29,15 @@ Requests can be done through a specific GraphQL client or any other HTTP request
 
 Curl example returning an event list with public id and title fields:
 
+```shell
     curl \
       -X POST \
       -H "Content-Type: application/json" \
       --data '{
           "query": " query events {viewer { events(limit: {offset: 0, length: 10}) { items { id title } } } }"
       }' \
-      https://demo-int.zoon.ch/api/graphql
+      https://demo-staging.zoon.ch/api/graphql
+```
 
 Cf. [Apollo blog post "4 simple ways to call a GraphQL API"](https://blog.apollographql.com/4-simple-ways-to-call-a-graphql-api-a6807bcdb355)
 
@@ -47,6 +49,24 @@ Cf. [Apollo blog post "4 simple ways to call a GraphQL API"](https://blog.apollo
 Queries as well as mutations are based on the viewer concept (cf. https://medium.com/the-graphqlhub/graphql-and-authentication-b73aed34bbeb).
 It makes the viewer sub-nodes dependent from the viewer object itself and separates the different concerns and permissions.
 
+Example query for the event list dependent on the viewer:
+
+```graphql
+query Events($token: String!) {
+    viewer(token: $token) {
+        events {
+            items {
+                title
+                description
+            }
+        }
+    }
+}
+```
+The public field `title` is exposed for all events, while the protected `description` field is only returned for events the viewer has explicitly permission for.
+
+Further more the viewer supports a `language` argument for specific languages. Per default supported values are `de`, `fr`, `it`, `en`.
+
 ### Authentication
 
 The viewer can be queried without authentication. In that case, only public properties are returned. For authentication,
@@ -57,6 +77,18 @@ For 3rd party application integrations the following 2 authentication methods ar
 
 - **App token** authentication grants access for a set of events limited by event types.
 - **Event token** authentication grants access for a specific event.
+
+Example mutation for app token authentication:
+
+```graphql
+mutation Auth($key: String!) {
+    authentication {
+        createTokenByAppToken(appToken: { key: $key }) {
+            token
+        }
+    }
+}
+```
 
 ## Use Cases
 
