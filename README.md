@@ -30,13 +30,13 @@ Requests can be done through a specific GraphQL client or any other HTTP request
 Curl example returning an event list with public id and title fields:
 
 ```shell
-    curl \
-      -X POST \
-      -H "Content-Type: application/json" \
-      --data '{
-          "query": " query events {viewer { events(limit: {offset: 0, length: 10}) { items { id title } } } }"
-      }' \
-      https://demo-staging.zoon.ch/api/graphql
+curl \
+  -X POST \
+  -H "Content-Type: application/json" \
+  --data '{
+      "query": " query events {viewer { events(limit: {offset: 0, length: 10}) { items { id title } } } }"
+  }' \
+  https://demo-staging.zoon.ch/api/graphql
 ```
 
 Cf. [Apollo blog post "4 simple ways to call a GraphQL API"](https://blog.apollographql.com/4-simple-ways-to-call-a-graphql-api-a6807bcdb355)
