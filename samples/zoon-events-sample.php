@@ -28,33 +28,36 @@ if (!isset($result['data']['authentication']['createTokenByAppToken']['token']))
 $token = $result['data']['authentication']['createTokenByAppToken']['token'];
 
 
-// REQUEST THE EVENTS
-$eventsQuery = <<<'QUERY'
-query Events(
+// REQUEST THE EVENT TEASERS
+$eventTeasersQuery = <<<'QUERY'
+query EventTeasers(
   $token: String!
   $offset: Int!
   $length: Int!
 ) {
   viewer(token: $token) {
-    events(limit: {offset: $offset, length: $length}) {
+    eventTeasers(limit: {offset: $offset, length: $length}) {
       items {
         id
         title
-        description
+        lead
         startDate
         endDate
+        operations {
+          id
+        }
       }
     }
   }
 }
 QUERY;
 
-$result = sendRequest($eventsQuery, ['token' => $token, 'offset' => 0, 'length' => 1]);
+$result = sendRequest($eventTeasersQuery, ['token' => $token, 'offset' => 0, 'length' => 1]);
 if (!isset($result['data']['viewer'])) {
     throw new Exception('Invalid token');
 }
 
-printEvents($result['data']['viewer']['events']['items']);
+printEventTeasers($result['data']['viewer']['eventTeasers']['items']);
 
 
 /**
@@ -91,21 +94,22 @@ function sendRequest($query, array $variables = [])
 }
 
 /**
- * Sample print of the events
+ * Sample print of the eventTeasers
  *
- * @param array $events
+ * @param array $eventTeasers
  */
-function printEvents(array $events)
+function printEventTeasers(array $eventTeasers)
 {
-    $output = <<<OUTPUT
+    $outputEvent = <<<OUTPUT
 <h1>%s</h1>
 <small>%s - %s</small>
 <p>%s</p>
+<p>%s Sessions</p>
 OUTPUT;
 
-    foreach ($events as $event) {
+    foreach ($eventTeasers as $event) {
         $startDate = (new DateTime())->setTimestamp($event['startDate'])->format('d.m.Y H:i');
         $endDate = (new DateTime())->setTimestamp($event['endDate'])->format('d.m.Y H:i');
-        printf($output, $event['title'], $startDate, $endDate, $event['description']);
+        printf($outputEvent, $event['title'], $startDate, $endDate, $event['lead'], count($event['operations']));
     }
 }

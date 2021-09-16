@@ -27,14 +27,14 @@ Alternatively you can introspect the API through an online tool such as [graphiq
 
 Requests can be done through a specific GraphQL client or any other HTTP requests. 
 
-Curl example returning an event list with public id and title fields:
+Curl example returning the "foo" event's public id and title fields. If the event does not exist, null is returned: 
 
 ```shell
 curl \
   -X POST \
   -H "Content-Type: application/json" \
   --data '{
-      "query": " query events {viewer { events(limit: {offset: 0, length: 10}) { items { id title } } } }"
+      "query": " query event {viewer { event(key: \"foo\") { id title } } }"
   }' \
   https://demo-staging.zoon.ch/api/graphql
 ```
@@ -49,16 +49,14 @@ Cf. [Apollo blog post "4 simple ways to call a GraphQL API"](https://blog.apollo
 Queries as well as mutations are based on the viewer concept (cf. https://medium.com/the-graphqlhub/graphql-and-authentication-b73aed34bbeb).
 It makes the viewer sub-nodes dependent from the viewer object itself and separates the different concerns and permissions.
 
-Example query for the event list dependent on the viewer:
+Example query for an event dependent on the viewer:
 
 ```graphql
-query Events($token: String!) {
+query Event($token: String!) {
     viewer(token: $token) {
-        events {
-            items {
-                title
-                description
-            }
+        event(key: $key) {
+            title
+            description
         }
     }
 }
@@ -101,9 +99,10 @@ Use case: _Event import to render the upcoming events in the intranet._
 Requesting the available events into a third-party application requires the following 2 requests:
 
 1.  Get the authentication token
-2.  Request the events
+2.  Request the events via the `eventTeasers`
 
-Note: Without a token you can still request the event list. However, only public properties are returned.
+Note: Additionally to the `eventTeasers` there is also the now deprecated `events` field with a more extensive set of 
+properties. For better performance you should use the `eventTeasers` whenever possible.
 
 The sample is available in [samples/zoon-events-sample.php](samples/zoon-events-sample.php)
 

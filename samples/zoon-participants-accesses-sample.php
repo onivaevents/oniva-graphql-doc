@@ -29,7 +29,7 @@ $token = $result['data']['authentication']['createTokenByEventToken']['token'];
 
 
 // REQUEST THE PARTICIPANTS ACCESSES
-$eventsQuery = <<<'QUERY'
+$accessesQuery = <<<'QUERY'
 query AccessQuery(
   $eventId: ID!
   $token: String
@@ -53,12 +53,12 @@ query AccessQuery(
 }
 QUERY;
 
-$result = sendRequest($eventsQuery, ['eventId' => EVENT_ID, 'token' => $token]);
+$result = sendRequest($accessesQuery, ['eventId' => EVENT_ID, 'token' => $token]);
 if (!isset($result['data']['viewer'])) {
     throw new Exception('Invalid token');
 }
 
-printEvents($result['data']['viewer']['event']['accesses']['items']);
+printAccesses($result['data']['viewer']['event']['accesses']['items']);
 
 
 /**
@@ -99,7 +99,7 @@ function sendRequest($query, array $variables = [])
  *
  * @param array $accesses
  */
-function printEvents(array $accesses)
+function printAccesses(array $accesses)
 {
     printf('<table>
 <tr>
