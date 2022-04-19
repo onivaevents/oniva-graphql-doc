@@ -101,9 +101,6 @@ Requesting the available events into a third-party application requires the foll
 1.  Get the authentication token
 2.  Request the events via the `eventTeasers`
 
-Note: Additionally to the `eventTeasers` there is also the now deprecated `events` field with a more extensive set of 
-properties. For better performance you should use the `eventTeasers` whenever possible.
-
 The sample is available in [samples/zoon-events-sample.php](samples/zoon-events-sample.php)
 
 ### Event participants accesses
