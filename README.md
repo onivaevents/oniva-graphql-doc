@@ -1,16 +1,16 @@
-# Zoon GraphQL API documentation and samples
+# Oniva GraphQL API documentation and samples
 
-Documentation and sample package for the [Zoon](https://zoon.ch) GraphQL API.
+Documentation and sample package for the [Oniva](https://www.oniva.events) GraphQL API.
 
 
 ## Getting started
 
-For API access you generally need the following parameters provided by Zoon.
+For API access you generally need the following parameters provided by Oniva.
 
-|Parameter|Example|Note|
----|---|---|
-|Endpoint Url|https://demo-staging.zoon.ch/api/graphql|The url of your Zoon instance appended by `/api/graphql`|
-|App token key|9b90683d5d689942cff7b46c5725547961c1a9e5|Token for app token authentication. This is provided by the Zoon Support or can be created by a super administrator in the admin interface. Alternatively, event token or further authentication methods for user based integrations are available. |
+|Parameter| Example                                  | Note                                                                                                                                                                                                                                                 |
+---|------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|Endpoint Url| https://app-staging.zoon.ch/api/graphql  | The url of your Oniva instance appended by `/api/graphql`                                                                                                                                                                                            |
+|App token key| 9b90683d5d689942cff7b46c5725547961c1a9e5 | Token for app token authentication. This is provided by the Oniva support or can be created by a super administrator in the admin interface. Alternatively, event token or further authentication methods for user based integrations are available. |
 
 Basic GraphQL knowledge is required for successfully consuming the API. 
 For general learnings please consult [https://graphql.org/learn/](https://graphql.org/learn/)
@@ -36,7 +36,7 @@ curl \
   --data '{
       "query": " query event {viewer { event(key: \"foo\") { id title } } }"
   }' \
-  https://demo-staging.zoon.ch/api/graphql
+  https://app-staging.zoon.ch/api/graphql
 ```
 
 Cf. [Apollo blog post "4 simple ways to call a GraphQL API"](https://blog.apollographql.com/4-simple-ways-to-call-a-graphql-api-a6807bcdb355)
@@ -101,7 +101,7 @@ Requesting the available events into a third-party application requires the foll
 1.  Get the authentication token
 2.  Request the events via the `eventTeasers`
 
-The sample is available in [samples/zoon-events-sample.php](samples/zoon-events-sample.php)
+The sample is available in [samples/oniva-events-sample.php](samples/oniva-events-sample.php)
 
 ### Event participants accesses
  
@@ -117,4 +117,4 @@ Then, also an authentication as well as the actual request is needed:
 1.  Get the authentication token
 2.  Request the participants accesses
 
-The sample is available in [samples/zoon-participants-accesses-sample.php](samples/zoon-participants-accesses-sample.php)
+The sample is available in [samples/oniva-participants-accesses-sample.php](samples/oniva-participants-accesses-sample.php)

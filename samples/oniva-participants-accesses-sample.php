@@ -1,11 +1,11 @@
 <?php
 
-// Set your Zoon domain and event settings
-const ZOON_URL = 'https://demo-staging.zoon.ch/';
+// Set your Oniva domain and event settings
+const ONIVA_URL = 'https://app-staging.zoon.ch/';
 const EVENT_ID = '1e7a814e-5daf-4df5-aae1-6f592fa1819f';
 const EVENT_TOKEN_KEY = 'qyo6Vouo';
 
-const GRAPHQL_ENDPOINT = ZOON_URL . 'api/graphql';
+const GRAPHQL_ENDPOINT = ONIVA_URL . 'api/graphql';
 
 // GET THE AUTHENTICATION TOKEN
 $authQuery = <<<'QUERY'
