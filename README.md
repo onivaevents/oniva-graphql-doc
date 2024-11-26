@@ -9,7 +9,7 @@ For API access you generally need the following parameters provided by Oniva.
 
 |Parameter| Example                                  | Note                                                                                                                                                                                                                                                 |
 ---|------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|Endpoint Url| https://app-staging.zoon.ch/api/graphql  | The url of your Oniva instance appended by `/api/graphql`                                                                                                                                                                                            |
+|Endpoint Url| https://app-staging.oniva.events/api/graphql  | The url of your Oniva instance appended by `/api/graphql`                                                                                                                                                                                            |
 |App token key| 9b90683d5d689942cff7b46c5725547961c1a9e5 | Token for app token authentication. This is provided by the Oniva support or can be created by a super administrator in the admin interface. Alternatively, event token or further authentication methods for user based integrations are available. |
 
 Basic GraphQL knowledge is required for successfully consuming the API. 
@@ -36,7 +36,7 @@ curl \
   --data '{
       "query": " query event {viewer { event(key: \"foo\") { id title } } }"
   }' \
-  https://app-staging.zoon.ch/api/graphql
+  https://app-staging.oniva.events/api/graphql
 ```
 
 Cf. [Apollo blog post "4 simple ways to call a GraphQL API"](https://blog.apollographql.com/4-simple-ways-to-call-a-graphql-api-a6807bcdb355)

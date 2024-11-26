@@ -1,7 +1,7 @@
 <?php
 
 // Set your Oniva domain and app token key
-const ONIVA_URL = 'https://app-staging.zoon.ch/';
+const ONIVA_URL = 'https://app-staging.oniva.events/';
 const APP_TOKEN_KEY = '8GySoDVTj8CytzmLngceh5zUSHVNNdQLjN3wg862';
 
 const GRAPHQL_ENDPOINT = ONIVA_URL . 'api/graphql';
